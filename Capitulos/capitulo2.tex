@@ -1,0 +1,120 @@
+Una red neuronal prealimentada (a partir de ahora FNN), es un modelo compuesto por \textit{capas}.
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[x=2.2cm,y=1.4cm]
+        \readlist\Nnod{3,4,4,4,3} % array of number of nodes per layer
+        \readlist\Nstr{n,m,m,m,k} % array of string number of nodes per layer
+        \readlist\Cstr{\strut x,a^{(\prev)},a^{(\prev)},a^{(\prev)},y} % array of coefficient symbol per layer
+        \def\yshift{0.5} % shift last node for dots
+        
+        \message{^^J  Layer}
+        \foreachitem \N \in \Nnod{ % loop over layers
+        \def\lay{\Ncnt} % alias of index of current layer
+        \pgfmathsetmacro\prev{int(\Ncnt-1)} % number of previous layer
+        \message{\lay,}
+        \foreach \i [evaluate={\c=int(\i==\N); \y=\N/2-\i-\c*\yshift;
+                     \index=(\i<\N?int(\i):"\Nstr[\lay]");
+                     \x=\lay; \n=\nstyle;}] in {1,...,\N}{ % loop over nodes
+          % NODES
+          \node[node \n] (N\lay-\i) at (\x,\y) {$\Cstr[\lay]_{\index}$};
+          
+          % CONNECTIONS
+          \ifnum\lay>1 % connect to previous layer
+            \foreach \j in {1,...,\Nnod[\prev]}{ % loop over nodes in previous layer
+              \draw[connect,white,line width=1.2] (N\prev-\j) -- (N\lay-\i);
+              \draw[connect] (N\prev-\j) -- (N\lay-\i);
+              %\draw[connect] (N\prev-\j.0) -- (N\lay-\i.180); % connect to left
+            }
+          \fi % else: nothing to connect first layer
+          
+        }
+        \path (N\lay-\N) --++ (0,1+\yshift) node[midway,scale=1.5] {$\vdots$};
+        }
+        
+        % LABELS
+        \node[above=5,align=center,mygreen!60!black] at (N1-1.90) {capa de\\[-0.2em]entrada};
+        %\node[above=2,align=center,myblue!60!black] at (N3-1.90) {capas ocultas};
+        \node[above=2,align=center,myblue!60!black] at (N3-1.90) {capas ocultas};
+        \node[above=10,align=center,myred!60!black] at (N\Nnodlen-1.90) {capa de\\[-0.2em]salida};
+        
+    \end{tikzpicture}
+    \caption{Red neuronal gigante.}
+    \label{fig:fnn1}
+\end{figure}
+
+Observe también que podemos añadir la siguiente tabla.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{||c c c c||} 
+     \hline
+     Col1 & Col2 & Col2 & Col3 \\ [0.5ex] 
+     \hline\hline
+     1 & 6 & 87837 & 787 \\ 
+     2 & 7 & 78 & 5415 \\
+     3 & 545 & 778 & 7507 \\
+     4 & 545 & 18744 & 7560 \\
+     5 & 88 & 788 & 6344 \\ [1ex] 
+     \hline
+    \end{tabular}
+    \caption{Tabla con valores sin sentido.}
+    \label{table:1}
+    \end{table}
+
+Ahora algunas ecuaciones.
+
+\begin{defi}
+La función \textit{rectificadora} se define como
+
+\begin{align*}
+    ReLU \colon \mathbb{R} &\to \mathbb{R}\\
+    x &\mapsto max\{0, x\}
+\end{align*}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}
+            domain=-4:4,
+            ]
+            \addplot+[mark=none,red,domain=-4:0] {0};
+            \addplot+[mark=none,red,domain=0:4] {x};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Gráfico de la función ReLU}
+    \label{fig:relu}
+\end{figure}
+
+\end{defi}
+
+\newpage
+
+\section{Función sigmoidea}
+
+\begin{obs}
+Una función sigmoidea muy conocída es la \textit{sigmoide}
+
+\newpage
+
+\begin{align*}
+    \sigma \colon \mathbb{R} &\to \mathbb{R}\\
+    x &\mapsto \frac{1}{1 + e^{-x}}
+\end{align*}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}
+            domain=-4:4,
+            ]
+            \addplot[red,mark=none,domain=-4:4]   (x,{1/(1+exp(-\x))});
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Gráfico de la función sigmoide}
+    \label{fig:sigmoide}
+\end{figure}
+\end{obs}
+

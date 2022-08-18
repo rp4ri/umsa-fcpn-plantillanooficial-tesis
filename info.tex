@@ -1,0 +1,44 @@
+\makeatletter
+% TÍTULO, AUTOR Y AÑO DE PUBLICACIÓN
+% En esta parte se puede editar el texto entre llaves.
+\title{Título espectacular para tu tesis}\let\Title\@title
+\author{Rodrigo Pari}        \let\Author\@author
+\date{2022}                         \let\Date\@date
+
+% DEFINIENDO NUEVOS MACROS
+% En esta parte se definen los macros de los comandos que usaré para la portada, no se debe editar.
+\newcommand{\@universidad}{}
+\newcommand{\universidad}[1]{\renewcommand{\@universidad}{#1}}
+
+\newcommand{\@facultad}{}
+\newcommand{\facultad}[1]{\renewcommand{\@facultad}{#1}}
+
+\newcommand{\@carrera}{}
+\newcommand{\carrera}[1]{\renewcommand{\@carrera}{#1}}
+
+\newcommand{\@tutor}{}
+\newcommand{\tutor}[1]{\renewcommand{\@tutor}{#1}}
+
+\newcommand{\@departamento}{}
+\newcommand{\departamento}[1]{\renewcommand{\@departamento}{#1}}
+
+\newcommand{\@pais}{}
+\newcommand{\pais}[1]{\renewcommand{\@pais}{#1}}
+
+% INFORMACIÓN ADICIONAL
+% En esta parte sí se puede editar el texto entre llaves.
+
+% Universidad
+\universidad{UNIVERSIDAD MAYOR DE SAN ANDRÉS}\let\Universidad\@universidad
+% Facultad
+\facultad{FACULTAD DE CIENCIAS PURAS Y NATURALES}\let\Facultad\@facultad
+% Carrera
+\carrera{CARRERA DE MATEMÁTICAS}\let\Carrera\@carrera
+% Tutor
+\tutor{Dr. Latex}\let\Tutor\@tutor
+% Departamento
+\departamento{La Paz}\let\Departamento\@departamento
+% País
+\pais{Bolivia}\let\Pais\@pais
+
+\makeatother
